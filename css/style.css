@@ -1,0 +1,32 @@
+.message-icon {
+    position: relative;
+    box-sizing: content-box;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    width: 1em;
+    height: 1em;
+    border: 0.15em solid transparent;
+    margin-right: .5em;
+    border-radius: 50%;
+    float: left;
+    line-height: 1rem;
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.message-info {
+    border-color: #007aff;
+}
+
+.message-icon-content {
+    display: flex;
+    align-items: center;
+    font-size: .8em;
+    font-weight: bold;
+    -webkit-tap-highlight-color: transparent;
+}
