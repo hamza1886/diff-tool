@@ -50,7 +50,7 @@ try {
     }
 
     // upload and move file if not done already
-    if (!is_uploaded_file($old_file_tmp_name)) {
+    if (!is_uploaded_file($old_file_name)) {
         if (!move_uploaded_file($old_file_tmp_name, UPLOAD_DIR . '/' . $old_file_name)) {
             $status_code = 500;
             throw new Exception("Internal server error, cannot upload file: $old_file_name", 106);
