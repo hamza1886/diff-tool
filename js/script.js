@@ -48,6 +48,7 @@
                 form.classList.add('was-validated');
                 form.querySelector('.loading').style.display = '';
                 document.querySelector('iframe').src = '';
+                document.querySelector('iframe').style.height = '10rem';
 
                 const oldFile = oldFileEl.files[0];
                 const newFile = newFileEl.files[0];
