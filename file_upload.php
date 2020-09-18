@@ -52,20 +52,26 @@ try {
     // upload and move file if not done already
     if (!is_uploaded_file($old_file_tmp_name)) {
         if (!move_uploaded_file($old_file_tmp_name, UPLOAD_DIR . '/' . $old_file_name)) {
-            $status_code = 400;
+            $status_code = 500;
             throw new Exception("Internal server error, cannot upload file: $old_file_name", 106);
         }
     }
     if (!is_uploaded_file($new_file_name)) {
         if (!move_uploaded_file($new_file_tmp_name, UPLOAD_DIR . '/' . $new_file_name)) {
-            $status_code = 400;
+            $status_code = 500;
             throw new Exception("Internal server error, cannot upload file: $new_file_name", 106);
         }
     }
 
+    // create name of output file
     $old_file = pathinfo($old_file_name)['filename'];
     $new_file = pathinfo($new_file_name)['filename'];
     $out_file_name = OUTPUT_DIR . '/' . $old_file . '___' . $new_file . '.html';
+
+    // delete old output file, if exists
+    if (file_exists($out_file_name)) {
+        @unlink($out_file_name);
+    }
 
     // run diff-tool in background
     $cmd = 'diff_tool.py ' . UPLOAD_DIR . '/' . $old_file_name . ' ' . UPLOAD_DIR . '/' . $new_file_name . ' --html ' . $out_file_name;
