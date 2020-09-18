@@ -68,11 +68,11 @@ try {
     $out_file_name = OUTPUT_DIR . '/' . $old_file . '___' . $new_file . '.html';
 
     // run diff-tool in background
-    $cmd = 'python diff_tool.py ' . UPLOAD_DIR . '/' . $old_file_name . ' ' . UPLOAD_DIR . '/' . $new_file_name . ' --html ' . $out_file_name;
+    $cmd = 'diff_tool.py ' . UPLOAD_DIR . '/' . $old_file_name . ' ' . UPLOAD_DIR . '/' . $new_file_name . ' --html ' . $out_file_name;
     if (substr(php_uname(), 0, 7) === 'Windows') {
-        pclose(popen('start /B ' . $cmd, 'r'));
+        pclose(popen('start /B python ' . $cmd, 'r'));
     } else {
-        exec($cmd . ' > /dev/null &');
+        exec('python3 ' . $cmd . ' > /dev/null &');
     }
 
     // return success message
