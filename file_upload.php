@@ -9,6 +9,13 @@ define('OUTPUT_DIR', 'output');
 $status_code = 200;
 
 try {
+    if (!file_exists(UPLOAD_DIR)) {
+        mkdir(UPLOAD_DIR, 0777, true);
+    }
+    if (!file_exists(OUTPUT_DIR)) {
+        mkdir(OUTPUT_DIR, 0777, true);
+    }
+
     if (!isset($_FILES['old_file']) || $_FILES['old_file']['name'] === '' ||
         !isset($_FILES['new_file']) || $_FILES['new_file']['name'] === '') {
         $status_code = 400;
