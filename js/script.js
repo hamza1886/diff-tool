@@ -2,7 +2,7 @@
     'use strict';
 
     let xhr, xhr2;
-    let referenceId;
+    let referenceId, iframeReferenceId;
 
     const Toast = Swal.mixin({
         toast: true,
@@ -47,6 +47,7 @@
                 event.preventDefault();
                 form.classList.add('was-validated');
                 form.querySelector('.loading').style.display = '';
+                document.querySelector('iframe').src = '';
 
                 const oldFile = oldFileEl.files[0];
                 const newFile = newFileEl.files[0];
@@ -141,13 +142,27 @@
                     document.querySelector('#output-container .loading').classList.remove('d-flex');
                     document.forms[0].reset();
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: responseJSON.message,
-                    });
+                    const iframe = document.querySelector('iframe');
+                    iframeReferenceId = setInterval(checkIframeLoaded, 1000, iframe, responseJSON.message);
                 }
             }
         };
         xhr2.send();
+    }
+
+    function checkIframeLoaded(iframe, message) {
+        const iframeDocument = iframe.contentWindow.document;
+        if (iframe.clientHeight > 0 && iframeDocument.querySelector('body').children.length > 0) {
+            if (iframeDocument.documentElement.offsetHeight === iframeDocument.documentElement.scrollHeight) {
+                iframe.style.height = (parseInt(iframe.style.height) + 10) + 'rem';
+            } else {
+                clearInterval(iframeReferenceId);
+
+                Toast.fire({
+                    icon: 'success',
+                    title: message,
+                });
+            }
+        }
     }
 })();
