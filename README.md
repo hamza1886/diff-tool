@@ -24,6 +24,7 @@ Adjust directory permissions to allow file upload to work
 
 ```shell script
 sudo chmod -R 777 upload/
+sudo chmod -R 777 output/
 ```
 
 ### Adjust apache config
